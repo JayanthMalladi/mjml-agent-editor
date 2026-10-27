@@ -142,7 +142,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
   };
 
   const tools: Record<BaseToolName, AgentTool> = {
-    get_document: tool<Record<string, never>, string>({
+    get_document: tool<Record<string, never>, string, Record<string, unknown>>({
       description: TOOLS.get_document.description,
       inputSchema: schemaOf<Record<string, never>>("get_document"),
       execute: async () => {
@@ -155,7 +155,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
       },
     }),
 
-    get_section: tool<SectionIdInput, string>({
+    get_section: tool<SectionIdInput, string, Record<string, unknown>>({
       description: TOOLS.get_section.description,
       inputSchema: schemaOf<SectionIdInput>("get_section"),
       execute: async ({ section_id }) => {
@@ -164,7 +164,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
       },
     }),
 
-    set_document: tool<MjmlInput, string>({
+    set_document: tool<MjmlInput, string, Record<string, unknown>>({
       description: TOOLS.set_document.description,
       inputSchema: schemaOf<MjmlInput>("set_document"),
       execute: async ({ mjml, confirm_full_rewrite }) => {
@@ -200,7 +200,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
       },
     }),
 
-    set_section: tool<SetSectionInput, string>({
+    set_section: tool<SetSectionInput, string, Record<string, unknown>>({
       description: TOOLS.set_section.description,
       inputSchema: schemaOf<SetSectionInput>("set_section"),
       execute: async ({ section_id, mjml }) => {
@@ -215,7 +215,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
       },
     }),
 
-    insert_section: tool<InsertSectionInput, string>({
+    insert_section: tool<InsertSectionInput, string, Record<string, unknown>>({
       description: TOOLS.insert_section.description,
       inputSchema: schemaOf<InsertSectionInput>("insert_section"),
       execute: async ({ mjml, after_section_id }) => {
@@ -234,7 +234,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
       },
     }),
 
-    remove_section: tool<SectionIdInput, string>({
+    remove_section: tool<SectionIdInput, string, Record<string, unknown>>({
       description: TOOLS.remove_section.description,
       inputSchema: schemaOf<SectionIdInput>("remove_section"),
       execute: async ({ section_id }) => {
@@ -248,7 +248,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
       },
     }),
 
-    generate_image: tool<GenerateImageInput, string>({
+    generate_image: tool<GenerateImageInput, string, Record<string, unknown>>({
       description: TOOLS.generate_image.description,
       inputSchema: schemaOf<GenerateImageInput>("generate_image"),
       execute: async ({ prompt, size }) => {
@@ -260,7 +260,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
       },
     }),
 
-    list_open_comments: tool<Record<string, never>, string>({
+    list_open_comments: tool<Record<string, never>, string, Record<string, unknown>>({
       description: TOOLS.list_open_comments.description,
       inputSchema: schemaOf<Record<string, never>>("list_open_comments"),
       execute: async () => {
@@ -278,7 +278,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
       },
     }),
 
-    resolve_comment: tool<ResolveCommentInput, string>({
+    resolve_comment: tool<ResolveCommentInput, string, Record<string, unknown>>({
       description: TOOLS.resolve_comment.description,
       inputSchema: schemaOf<ResolveCommentInput>("resolve_comment"),
       execute: async ({ comment_id }) => {
@@ -296,7 +296,7 @@ export function createAgentTools(context: AgentToolContext): AgentTools {
 
   return {
     ...tools,
-    inspect_rendered_email: tool<Record<string, never>, string>({
+    inspect_rendered_email: tool<Record<string, never>, string, Record<string, unknown>>({
       description: TOOLS.inspect_rendered_email.description,
       inputSchema: schemaOf<Record<string, never>>("inspect_rendered_email"),
       execute: async () => {

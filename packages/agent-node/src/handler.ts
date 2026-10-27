@@ -23,7 +23,7 @@ import {
 import {
   convertToModelMessages,
   generateId,
-  stepCountIs,
+  isStepCount,
   streamText,
   type LanguageModel,
   type LanguageModelUsage,
@@ -253,7 +253,7 @@ export function createChatHandler(options: ChatHandlerOptions) {
           // produces zeros rather than NaN in someone's ledger.
           inputTokens: total.inputTokens ?? 0,
           outputTokens: total.outputTokens ?? 0,
-          cachedInputTokens: total.cachedInputTokens ?? 0,
+          cachedInputTokens: total.inputTokenDetails.cacheReadTokens ?? 0,
           totalTokens: total.totalTokens ?? 0,
           raw: total,
           steps: [...stepUsage],
@@ -268,18 +268,18 @@ export function createChatHandler(options: ChatHandlerOptions) {
 
     const result = streamText({
       model: options.model,
-      system,
+      instructions: system,
       // Async in AI SDK v6 — it may need to fetch file/image parts referenced by URL.
       messages: await convertToModelMessages(conversation),
       tools: { ...builtIn, ...hostTools },
-      stopWhen: stepCountIs(maxSteps),
+      stopWhen: isStepCount(maxSteps),
       // A one-step turn has nothing to report yet, so it is not asked to.
       prepareStep: ({ stepNumber, messages }) =>
         stepNumber > 0 && stepNumber === maxSteps - 1
           ? { messages: [...messages, { role: "user", content: LAST_STEP_NOTE }] }
           : undefined,
       abortSignal: abort.signal,
-      onStepFinish: ({ usage, toolCalls }) => {
+      onStepEnd: ({ usage, toolCalls }) => {
         stepUsage.push(usage);
         lastStepCalledTools = toolCalls.length > 0;
       },
@@ -308,7 +308,7 @@ export function createChatHandler(options: ChatHandlerOptions) {
             // key" and may drop or duplicate messages. Silent, and only visible after a
             // reload.
             generateMessageId: generateId,
-            onFinish: ({ messages }) => session.save(body.docId, messages),
+            onEnd: ({ messages }) => session.save(body.docId, messages),
           }
         : {}),
     });
@@ -358,7 +358,6 @@ function sumUsage(steps: readonly LanguageModelUsage[]): LanguageModelUsage {
     inputTokens: add((u) => u.inputTokens),
     outputTokens: add((u) => u.outputTokens),
     totalTokens: add((u) => u.totalTokens),
-    cachedInputTokens: add((u) => u.cachedInputTokens),
     inputTokenDetails: {
       noCacheTokens: add((u) => u.inputTokenDetails?.noCacheTokens),
       cacheReadTokens: add((u) => u.inputTokenDetails?.cacheReadTokens),

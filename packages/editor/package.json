@@ -63,7 +63,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ai-sdk/react": "^3.0.232",
+    "@ai-sdk/react": "^4.0.0",
     "@grapesjs/react": "^2.0.0",
     "@mjml-agent-editor/core": "workspace:*",
     "@shadcn/react": "^0.2.1",
@@ -80,14 +80,14 @@
     "tailwind-merge": "^3.6.0"
   },
   "peerDependencies": {
-    "ai": "^6.0.230",
+    "ai": "^7.0.0",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "ai": "^6.0.230",
+    "ai": "^7.0.0",
     "jsdom": "^26.1.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",

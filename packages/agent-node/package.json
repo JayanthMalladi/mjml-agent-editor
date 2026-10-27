@@ -56,21 +56,21 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^3.0.0",
-    "@ai-sdk/openai": "^3.0.90",
+    "@ai-sdk/anthropic": "^4.0.0",
+    "@ai-sdk/openai": "^4.0.0",
     "@mjml-agent-editor/core": "workspace:*",
     "mjml": "^4.18.0"
   },
   "peerDependencies": {
-    "ai": "^6.0.230"
+    "ai": "^7.0.0"
   },
   "devDependencies": {
-    "@ai-sdk/provider": "^3.0.14",
+    "@ai-sdk/provider": "^4.0.0",
     "@types/mjml": "^4.7.4",
     "@types/node": "^22.10.2",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8",
-    "ai": "^6.0.230"
+    "ai": "^7.0.0"
   }
 }
